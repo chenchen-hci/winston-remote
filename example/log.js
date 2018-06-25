@@ -1,16 +1,16 @@
 var winston = require('winston');
 var winstonRemoteTransport = require('../index').Transport;
 
-var logger = new (winston.Logger)({
+var logger = winston.createLogger({
     transports: [
-        new (winston.transports.Console)(),
         new (winstonRemoteTransport)({
-            host: '127.0.0.1',
-            port: 9003,
-            label: 'Client',
-            stack: true
+            host: '127.0.0.1', // Remote server ip
+            port: 9003 // Remote server port
         })
-    ]
+    ],
+    exitOnError: false
 });
 
-logger.info('foo');
+setInterval(() => {
+    logger.info('this is a test');
+}, 1000);
