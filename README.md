@@ -23,13 +23,6 @@ var winstonServer = winstonRemote.createServer({
 });
 
 winstonServer.listen();
-
-// Set up the winston logger transports
-winstonServer.logger = new (winston.Logger)({
-    transports: [
-        new winston.transports.File({ filename: '/var/log/winston/info.log' })
-    ]
-});
 ```
 
 ```bash
@@ -44,10 +37,10 @@ Set up your local winston transport that sends the winston logs to the remote se
 var winston = require('winston');
 var winstonRemoteTransport = require('winston-remote').Transport;
 
-var logger = new (winston.Logger)({
+var logger = winston.createLogger({
     transports: [
         new (winstonRemoteTransport)({
-            host: '192.168.1.100', // Remote server ip
+            host: 'syn-blue.andrew.cmu.edu', // Remote server ip
             port: 9003 // Remote server port
         })
     ]
